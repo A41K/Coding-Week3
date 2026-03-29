@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Live API Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="main.css" />
+  </head>
+
+  <body>
+    <div id="background" class="app-shell">
+      <div class="grain"></div>
+
+      <main class="dashboard">
+        <header class="hero card">
+          <p class="eyebrow">Realtime data wall</p>
+          <h1 id="dateLabel">Loading date...</h1>
+          <p id="time" class="time">00:00:00</p>
+        </header>
+
+        <section class="cards-grid" aria-label="Live data panels">
+          <article class="card weather-card">
+            <h2>Weather</h2>
+            <p id="weather" class="data">Loading weather...</p>
+            <p id="location" class="meta">Locating...</p>
+            <p id="weatherCondition" class="meta">Loading conditions...</p>
+            <p id="weatherUpdated" class="meta">Updating...</p>
+          </article>
+
+          <article class="card">
+            <h2>NASA APOD</h2>
+            <p id="apodTitle" class="data">Loading image title...</p>
+            <p id="apodDescription" class="meta">Fetching Astronomy Picture of the Day...</p>
+          </article>
+
+          <article class="card quote-card">
+            <h2>Quotes</h2>
+            <p id="quote1" class="data">Loading quote 1...</p>
+            <p id="quote2" class="meta">Loading quote 2...</p>
+            <p id="quote3" class="meta">Loading quote 3...</p>
+          </article>
+
+          <article class="card spotify-card">
+            <h2>Spotify</h2>
+            <p id="spotifyStatus" class="meta">
+              Paste a Spotify link (track, album, playlist, artist, show, or episode).
+            </p>
+            <div class="spotify-controls">
+              <input
+                id="spotifyInput"
+                class="spotify-input"
+                type="text"
+                placeholder="https://open.spotify.com/track/..."
+                aria-label="Spotify link"
+              />
+              <button id="spotifyLoadBtn" class="spotify-button" type="button">
+                Load
+              </button>
+            </div>
+            <iframe
+              id="spotifyEmbed"
+              class="spotify-embed"
+              src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M"
+              title="Spotify player"
+              loading="lazy"
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            ></iframe>
+          </article>
+        </section>
+      </main>
+    </div>
+
+    <script src="script.js" defer></script>
+  </body>
+</html>
