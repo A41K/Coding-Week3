@@ -25,6 +25,29 @@ const SPOTIFY_ALLOWED_TYPES = new Set([
   "episode",
   "show"
 ]);
+const NASA_API_KEY_BASE32 = "OFDDE6DUMZTEUNSYNFKWO6RQKVRVO42YPJVEYSDPGFKVUUKTJM2DCRKXJVSWOZKR";
+
+function decodeBase32(base32Value) {
+  const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
+  const cleanValue = base32Value.replace(/=+$/g, "").toUpperCase();
+  let bitString = "";
+
+  for (const char of cleanValue) {
+    const index = alphabet.indexOf(char);
+    if (index < 0) {
+      throw new Error("Invalid Base32 string.");
+    }
+
+    bitString += index.toString(2).padStart(5, "0");
+  }
+
+  const bytes = [];
+  for (let i = 0; i + 8 <= bitString.length; i += 8) {
+    bytes.push(parseInt(bitString.slice(i, i + 8), 2));
+  }
+
+  return new TextDecoder().decode(new Uint8Array(bytes));
+}
 
 async function fetchJsonWithTimeout(url, timeoutMs = 7000) {
   const controller = new AbortController();
@@ -44,8 +67,8 @@ async function fetchJsonWithTimeout(url, timeoutMs = 7000) {
 }
 
 async function getApodData() {
-  const url =
-    "https://api.nasa.gov/planetary/apod?api_key=qF2xtffJ6XiUgz0UcWsXzjLHo1UZQSK41EWMegeQ";
+  const apiKey = decodeBase32(NASA_API_KEY_BASE32);
+  const url = `https://api.nasa.gov/planetary/apod?api_key=${encodeURIComponent(apiKey)}`;
 
   return fetchJsonWithTimeout(url, 7000);
 }
